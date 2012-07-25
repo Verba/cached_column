@@ -16,7 +16,7 @@ end
 
 class ActiveRecord::Base
   def self.cache_column(column, options = {})
-    before_save CacheColumn.new(column, instance_method(column), options)
+    before_save CacheColumn.new(column, instance_method(options[:method] || column), options)
     define_method_attribute(column.to_s)
   end
 end

@@ -15,4 +15,6 @@ Gem::Specification.new do |gem|
   gem.version       = "0.1"
 
   gem.add_dependency "activerecord", "~> 3.0"
+  gem.add_development_dependency "rspec"
+  gem.add_development_dependency "activerecord-nulldb-adapter"
 end

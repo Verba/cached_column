@@ -1,6 +1,6 @@
 require 'active_record'
 
-class CacheColumn
+class CachedColumn
   attr_accessor :column, :options, :instance_method
 
   def initialize(column, instance_method, options = {})
@@ -15,8 +15,8 @@ class CacheColumn
 end
 
 class ActiveRecord::Base
-  def self.cache_column(column, options = {})
-    before_save CacheColumn.new(column, instance_method(options[:method] || column), options)
+  def self.cached_column(column, options = {})
+    before_save CachedColumn.new(column, instance_method(options[:method] || column), options)
     define_method_attribute(column.to_s)
   end
 end

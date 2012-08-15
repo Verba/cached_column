@@ -1,10 +1,10 @@
-require 'cache_column'
+require 'cached_column'
 require 'nulldb'
 
 ActiveRecord::Base.establish_connection :adapter => :nulldb,
                                         :schema  => File.expand_path("../schema.rb", __FILE__)
 
-describe CacheColumn do
+describe CachedColumn do
   let :model do
     Class.new(ActiveRecord::Base) do
       self.table_name = 'test'
@@ -21,21 +21,21 @@ describe CacheColumn do
 
   describe "when saving" do
     it "sets the attribute value to the result of the method of the same name" do
-      model.cache_column :cached_column
+      model.cached_column :cached_column
       instance = model.new
       instance.save
       instance[:cached_column].should == 42
     end
 
     it "sets the attribute value to the result of the specified method" do
-      model.cache_column :cached_column, :method => :calculating_method
+      model.cached_column :cached_column, :method => :calculating_method
       instance = model.new
       instance.save
       instance[:cached_column].should == 43
     end
 
     it "allows the original method to be called" do
-      model.cache_column :cached_column
+      model.cached_column :cached_column
       instance = model.new
       instance.save
       instance.cached_column(44).should == 44

@@ -1,4 +1,4 @@
-# CacheColumn
+# CachedColumn
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'cache_column'
+    gem 'cached_column'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install cache_column
+    $ gem install cached_column
 
 ## Usage
 

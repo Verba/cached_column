@@ -1,22 +1,29 @@
 require 'active_record'
 
 class CachedColumn
-  attr_accessor :column, :options, :instance_method
+  attr_accessor :column, :options, :block
 
-  def initialize(column, instance_method, options = {})
-    @column          = column
-    @options         = options
-    @instance_method = instance_method
+  def initialize(column, options = {}, &block)
+    @column  = column
+    @options = options
+    @block   = block
   end
 
   def before_save(record)
-    record.send("#{column}=", instance_method.bind(record).call)
+    record.send("#{column}=", computed_value(record))
+  end
+
+  def computed_value(record)
+    if block
+      record.instance_eval(&block)
+    else
+      record.send(options[:method] || column)
+    end
   end
 end
 
 class ActiveRecord::Base
-  def self.cached_column(column, options = {})
-    before_save CachedColumn.new(column, instance_method(options[:method] || column), options)
-    define_method_attribute(column.to_s)
+  def self.cached_column(column, options = {}, &block)
+    before_save CachedColumn.new(column, options, &block)
   end
 end

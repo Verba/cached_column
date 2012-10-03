@@ -34,6 +34,13 @@ describe CachedColumn do
       instance[:cached_column].should == 43
     end
 
+    it "sets the attribute value to the result of instance evaluating the block" do
+      model.cached_column(:cached_column) { calculating_method }
+      instance = model.new
+      instance.save
+      instance[:cached_column].should == 43
+    end
+
     it "allows the original method to be called" do
       model.cached_column :cached_column
       instance = model.new

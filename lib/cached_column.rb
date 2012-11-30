@@ -11,6 +11,7 @@ class CachedColumn
 
   def before_save(record)
     record.send("#{column}=", computed_value(record))
+    true
   end
 
   def computed_value(record)

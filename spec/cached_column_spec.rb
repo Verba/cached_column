@@ -47,5 +47,12 @@ describe CachedColumn do
       instance.save
       instance.cached_column(44).should == 44
     end
+
+    it "caches false" do
+      model.cached_column(:boolean) { false }
+      instance = model.new
+      instance.save!
+      instance[:boolean].should == false
+    end
   end
 end

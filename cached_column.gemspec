@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = "0.4"
 
-  gem.add_dependency "activerecord", ">= 3", "< 5"
+  gem.add_dependency "activerecord"
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "activerecord-nulldb-adapter"
 end
